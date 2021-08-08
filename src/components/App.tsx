@@ -17,8 +17,8 @@ export const App: FC = () => {
       setPreview(null)
     }
   }, [image])
-
-  function dragStartHandler(e: any) {
+  // Если пишешь на typescript 'any' нужно избегать как можно больше. Иначе какой смысл TS?
+  function dragStartHandler(e: Event) {
     e.preventDefault()
     e.stopPropagation()
     setDrag(true)
@@ -32,6 +32,7 @@ export const App: FC = () => {
 
   function onDropHandler(e: any) {
     e.preventDefault()
+    // TODO: comment
     e.stopPropagation()
     // const reader = new FileReader()
     const files = [...e.dataTransfer.files]
@@ -41,6 +42,7 @@ export const App: FC = () => {
     if (file) {
       setImage(file)
     } else {
+      // TODO: comment
       setImage(null)
     }
     setDrag(false)
@@ -48,6 +50,7 @@ export const App: FC = () => {
 
   return (
     <div
+      // лучше обойтись без двойного отрицания где возможно
       className={!drag ? 'wrapper' : `wrapper active`}
       // onDragEnter={(e) => dragStartHandler(e)}
       onDragOver={(e) => dragStartHandler(e)}
@@ -56,6 +59,7 @@ export const App: FC = () => {
     >
       {preview && (
         <div className={'img-wrap'}>
+          {/* alt=123 почему? */}
           <img src={preview as string} alt="123" />
         </div>
       )}
